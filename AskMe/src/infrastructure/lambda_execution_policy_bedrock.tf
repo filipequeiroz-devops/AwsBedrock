@@ -1,4 +1,4 @@
-# Lambda identity - Who qualifies to assume this role and execute the Lambda function !
+# Lambda identity
 resource "aws_iam_role" "lambda_exec_role_bedrock" {
   name = "lambda_exec_role_bedrock"
 
@@ -14,7 +14,6 @@ resource "aws_iam_role" "lambda_exec_role_bedrock" {
   })
 }
 
-# Lambda permissions - What actions the Lambda function can perform and on which resources
 resource "aws_iam_role_policy" "lambda_exec_policy_bedrock" {
   name = "lambda_exec_policy_bedrock"
   role = aws_iam_role.lambda_exec_role_bedrock.id
@@ -22,7 +21,7 @@ resource "aws_iam_role_policy" "lambda_exec_policy_bedrock" {
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
-      #allow logging to CloudWatch
+      #logs permissions
       {
         Action = [
           "logs:CreateLogGroup",
@@ -31,6 +30,29 @@ resource "aws_iam_role_policy" "lambda_exec_policy_bedrock" {
         ]
         Effect   = "Allow"
         Resource = "arn:aws:logs:*:*:*"
+      },
+
+      #Bedro permissions
+      {
+        Action = [
+          "bedrock:InvokeModel",           # to call the LLM
+          "bedrock:RetrieveAndGenerate",   # Knowledge retrieval + generation in one step
+          "bedrock:Retrieve"               # search in s3/opensearch
+        ]
+        Effect   = "Allow"
+        Resource = "*" 
+      },
+
+      # DynamoDV permissions
+      {
+        action = [
+          "dynamodb:PutItem",    #to save the conversation
+          "dynamodb:GetItem",    #to retrieve the conversation
+          "dynamodb:Updateitem", #to update the conversation
+          "dynamodb:Query"       #to query the conversation
+        ]
+        Effect   = "Allow"
+        Resource = aws_dynamodb_table.askme_table.arn
       }
     ]
   })
