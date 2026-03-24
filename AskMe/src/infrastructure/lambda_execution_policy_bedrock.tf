@@ -35,24 +35,31 @@ resource "aws_iam_role_policy" "lambda_exec_policy_bedrock" {
       #Bedro permissions
       {
         Action = [
-          "bedrock:InvokeModel",           # to call the LLM
-          "bedrock:RetrieveAndGenerate",   # Knowledge retrieval + generation in one step
-          "bedrock:Retrieve"               # search in s3/opensearch
+          "bedrock:InvokeModel",         # to call the LLM
+          "bedrock:RetrieveAndGenerate", # Knowledge retrieval + generation in one step
+          "bedrock:Retrieve"             # search in s3/opensearch
         ]
         Effect   = "Allow"
-        Resource = "*" 
+        Resource = "*"
       },
 
       # DynamoDV permissions
       {
-        action = [
+        Action = [
           "dynamodb:PutItem",    #to save the conversation
           "dynamodb:GetItem",    #to retrieve the conversation
           "dynamodb:Updateitem", #to update the conversation
           "dynamodb:Query"       #to query the conversation
         ]
         Effect   = "Allow"
-        Resource = aws_dynamodb_table.askme_table.arn
+        Resource = aws_dynamodb_table.users_table.arn
+      },
+
+      # Permission for lambda public to call lambda private
+      {
+        Action   = "lambda:InvokeFunction"
+        Effect   = "Allow"
+        Resource = aws_lambda_function.lambda_aurora.arn
       }
     ]
   })
