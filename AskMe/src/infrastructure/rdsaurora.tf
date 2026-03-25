@@ -3,11 +3,14 @@ resource "aws_rds_cluster" "vector_db" {
   engine                 = "aurora-postgresql"
   engine_mode            = "provisioned" # needed for Serverless v2
   engine_version         = "16.1"        # version that supports pgvector
-  database_name          = "barberdb"
+  database_name          = "${var.company_name}db"
   master_username        = "admin"
-  master_password        = aws_ssm_parameter.db_password.value
+  master_password        = random_password.db_password.result
   db_subnet_group_name   = aws_db_subnet_group.aurora_group.name
   vpc_security_group_ids = [aws_security_group.rds_sg.id]
+
+  # Data API
+  enable_http_endpoint   = true
 
   serverlessv2_scaling_configuration {
     max_capacity = 2.0

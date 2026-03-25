@@ -13,7 +13,7 @@ resource "aws_bedrockagent_knowledge_base" "barber_kb" {
     type = "RDS"
     rds_configuration {
       resource_arn           = aws_rds_cluster.vector_db.arn
-      credentials_secret_arn = aws_ssm_parameter.db_password.arn # Aqui usamos o SSM que você criou
+      credentials_secret_arn = aws_secretsmanager_secret.db_credentials.arn
 
       field_mapping {
         vector_field      = "embedding"
@@ -22,15 +22,15 @@ resource "aws_bedrockagent_knowledge_base" "barber_kb" {
         metadata_field    = "metadata"
       }
 
-    endpoint_configuration {
-        type = "VPC" # Defines access by private networkd
-        vpc_configuration {
-          subnet_ids         = [aws_subnet.private_subnet_1.id, aws_subnet.private_subnet_2.id]
-          security_group_ids = [aws_security_group.bedrock_sg.id]
-        }
-      }
+    #  endpoint_configuration {
+    #    type = "VPC" # Defines access by private networkd
+    #    vpc_configuration {
+    #      subnet_ids         = [aws_subnet.private_subnet_1.id, aws_subnet.private_subnet_2.id]
+    #      security_group_ids = [aws_security_group.bedrock_sg.id]
+    #    }
+    #  }
 
-      database_name = "barberdb"
+      database_name = "${var.company_name}db"
       table_name    = "vectors"
     }
   }
