@@ -1,6 +1,10 @@
 resource "aws_bedrockagent_knowledge_base" "barber_kb" {
   name     = "${var.company_name}-kb"
   role_arn = aws_iam_role.bedrock_kb_role.arn
+  #Was getting error on deploy  
+  depends_on = [
+    null_resource.init_vector_db
+  ]
 
   knowledge_base_configuration {
     type = "VECTOR"
@@ -22,16 +26,10 @@ resource "aws_bedrockagent_knowledge_base" "barber_kb" {
         metadata_field    = "metadata"
       }
 
-    #  endpoint_configuration {
-    #    type = "VPC" # Defines access by private networkd
-    #    vpc_configuration {
-    #      subnet_ids         = [aws_subnet.private_subnet_1.id, aws_subnet.private_subnet_2.id]
-    #      security_group_ids = [aws_security_group.bedrock_sg.id]
-    #    }
-    #  }
-
       database_name = "${var.company_name}db"
       table_name    = "vectors"
+
+      
     }
   }
 }

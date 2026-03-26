@@ -8,8 +8,8 @@ data "archive_file" "aurora_zip" {
 resource "aws_lambda_function" "lambda_aurora" {
   filename      = data.archive_file.aurora_zip.output_path
   function_name = "lambda_aurora"
-  role          = aws_iam_role.lambda_exec_role_bedrock.arn #execution role from lambda_execution_policy_bedrock.tf
-  handler       = "bedrockcode.lambda_handler"              # inside zip file, search for o confirm_handler.py
+  role          = aws_iam_role.lambda_exec_role_auroradynamo.arn #execution role from lambda_execution_policy_bedrock.tf
+  handler       = "bedrockcode.lambda_handler"                   # inside zip file, search for o confirm_handler.py
   runtime       = "python3.11"
 
   source_code_hash = data.archive_file.aurora_zip.output_base64sha256

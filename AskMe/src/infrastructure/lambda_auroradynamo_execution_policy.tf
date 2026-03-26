@@ -1,6 +1,6 @@
 # Lambda identity
-resource "aws_iam_role" "lambda_exec_role_bedrock" {
-  name = "lambda_exec_role_bedrock"
+resource "aws_iam_role" "lambda_exec_role_auroradynamo" {
+  name = "lambda_exec_role_auroradynamo"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -14,9 +14,9 @@ resource "aws_iam_role" "lambda_exec_role_bedrock" {
   })
 }
 
-resource "aws_iam_role_policy" "lambda_exec_policy_bedrock" {
-  name = "lambda_exec_policy_bedrock"
-  role = aws_iam_role.lambda_exec_role_bedrock.id
+resource "aws_iam_role_policy" "lambda_exec_policy_auroradynamo" {
+  name = "lambda_exec_policy_auroradynamo"
+  role = aws_iam_role.lambda_exec_role_auroradynamo.id
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -48,19 +48,18 @@ resource "aws_iam_role_policy" "lambda_exec_policy_bedrock" {
         Action = [
           "dynamodb:PutItem",    #to save the conversation
           "dynamodb:GetItem",    #to retrieve the conversation
-          "dynamodb:Updateitem", #to update the conversation
+          "dynamodb:UpdateItem", #to update the conversation
           "dynamodb:Query"       #to query the conversation
         ]
         Effect   = "Allow"
         Resource = aws_dynamodb_table.users_table.arn
-      },
-
-      # Permission for lambda public to call lambda private
-      {
-        Action   = "lambda:InvokeFunction"
-        Effect   = "Allow"
-        Resource = aws_lambda_function.lambda_aurora.arn
       }
     ]
   })
+}
+
+#Since this lambda is private, needs vpc access
+resource "aws_iam_role_policy_attachment" "lambda_vpc_access" {
+  role       = aws_iam_role.lambda_exec_role_auroradynamo.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
 }

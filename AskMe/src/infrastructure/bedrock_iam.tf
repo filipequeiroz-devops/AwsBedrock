@@ -41,9 +41,18 @@ resource "aws_iam_role_policy" "bedrock_kb_policy" {
       },
       # Permission to access Auroro (via Query Editor/Data API ou acesso direto)
       {
-        Action   = "rds-data:*"
+        Action = [
+          "rds-data:*",
+          "rds:DescribeDBClusters"
+        ]
         Effect   = "Allow"
         Resource = aws_rds_cluster.vector_db.arn
+      },
+
+      {
+        Action   = "secretsmanager:GetSecretValue"
+        Effect   = "Allow"
+        Resource = aws_secretsmanager_secret.db_credentials.arn
       }
     ]
   })
