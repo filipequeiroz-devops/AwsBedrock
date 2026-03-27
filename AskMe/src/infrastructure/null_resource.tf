@@ -12,9 +12,9 @@ resource "null_resource" "init_vector_db" {
     aws_secretsmanager_secret_version.db_credentials_version
   ]
 
-  provisioner "local-exec" {
+provisioner "local-exec" {
     command = <<EOT
-      # Chamada 1: Cria a extensão
+      # Chamada 1: Cria a extensão vector
       aws rds-data execute-statement `
         --resource-arn ${aws_rds_cluster.vector_db.arn} `
         --secret-arn ${aws_secretsmanager_secret.db_credentials.arn} `
@@ -28,6 +28,22 @@ resource "null_resource" "init_vector_db" {
         --secret-arn ${aws_secretsmanager_secret.db_credentials.arn} `
         --database "${var.company_name}db" `
         --sql "CREATE TABLE IF NOT EXISTS vectors (id UUID PRIMARY KEY, embedding vector(1536), chunks TEXT, metadata JSON);" `
+        --region us-east-1
+
+      # Chamada 3: Cria o índice GIN (Texto)
+      aws rds-data execute-statement `
+        --resource-arn ${aws_rds_cluster.vector_db.arn} `
+        --secret-arn ${aws_secretsmanager_secret.db_credentials.arn} `
+        --database "${var.company_name}db" `
+        --sql "CREATE INDEX IF NOT EXISTS chunks_idx ON vectors USING gin (to_tsvector('simple', chunks));" `
+        --region us-east-1
+
+      # Chamada 4: Cria o índice HNSW (Vetores/IA) - O CHEFÃO FINAL
+      aws rds-data execute-statement `
+        --resource-arn ${aws_rds_cluster.vector_db.arn} `
+        --secret-arn ${aws_secretsmanager_secret.db_credentials.arn} `
+        --database "${var.company_name}db" `
+        --sql "CREATE INDEX IF NOT EXISTS embedding_idx ON vectors USING hnsw (embedding vector_cosine_ops);" `
         --region us-east-1
     EOT
 
