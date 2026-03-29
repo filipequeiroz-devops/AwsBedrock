@@ -1,9 +1,40 @@
-Serviços:
+Serviços (Masculinos):
     Corte de Cabelo: R$ 45,00 (40min)
     Corte infantil: R$ 45,00 (40min)
+    Corte blindado ou dimil R$ 65,00 (40min)
+    Corte , Penteado Com laquê R$ 50,00 (40min)
+    Corte Com Freestyle R$ 50,00 (40min)
+    Barba com toalha quente R$ 45,00 (40min)
+    Barba terapia ( Com Ozônio ) R$ 60,00 (40min)
+    Coloração barba( Pigmentação)  R$ 35,00 (40min)
 
-Combos:
+Combos (Masculinos):
     Corte e barba: R$ 85,00 (1h 20min)
     Corte e Sobrancelha: R$ 55,00 (40min)
     Corte, Barba E Sobrancelha R$ 95,00 (1h 20min)
     Corte e Luzes:  R$ 110,00 (1h 20min)
+    Corte e Barbaterapia( Vapor De Ozônio) R$ 100,00 (1h 20min)
+    Corte e Relaxamento R$ 95,00 (1h 20min)
+    Corte e Alisamento R$ 95,00 (1h 20min)
+    Escova e pezinho R$ 30,00 (1h 20min)
+
+Químicas (masculino):
+    Platinado Nevoa ( á partir) R$ 120,00 (1h 20min)
+    Coloração /pigmentacao (á partir) R$ 45,00 (40min)
+    Luzes platinado (á partir) R$ 65,00 (1h 20min)
+    Alisamento ou relaxamento (á partir) R$ 50,00 (40min)
+    Botox (á partir) R$ 50,00 (40min)
+    Lisoterapia ( Progressiva) R$ 60,00 (40min)
+    Cauterização (Reconstrução do fio capilar)  R$ 35,00 (40min)
+
+Serviços (Femininos):
+    Corte Feminino R$ 60,00 (40min)
+    Corte E Escova ( A Partir) R$ 100,00+ (1h 20min)
+    Nutrição Ou Hidratação (O preço varia de acordo com a cliente, orçamento feito na hora) (40min)
+    Redutox (O preço varia de acordo com a cliente, orçamento feito na hora) (1h 20min)
+    Reflexos / Loiro Iluminado/ Luzes (O preço varia de acordo com a cliente, orçamento feito na hora) (3h)
+    Escova (A Partir) R$ 50,00+ (40min)
+    Coloracao (O preço varia de acordo com a cliente, orçamento feito na hora) (1h 20min)
+    Progressiva (O preço varia de acordo com a cliente, orçamento feito na hora)  (1h 20min)
+    Reconstrução (O preço varia de acordo com a cliente, orçamento feito na hora) (40min)
+    Cauterização (O preço varia de acordo com a cliente, orçamento feito na hora) (1h 20min)
