@@ -20,3 +20,8 @@ variable "db_password" {
   type        = string
   description = "Password for the database"
 }
+
+variable "verify_token" {
+  type        = string
+  description = "Token used to verify the webhook with WhatsApp"
+}

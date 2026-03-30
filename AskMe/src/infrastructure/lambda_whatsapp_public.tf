@@ -15,10 +15,11 @@ resource "aws_lambda_function" "lambda_whatsapp" {
   source_code_hash = data.archive_file.whatsapp_zip.output_base64sha256
 
   environment {
-    #VARIABLES TO BE CREATED
-    #variables = {
-    #VARIABLE_NAME = "value"
-    #}
+    #VARIABLES 
+    variables = {
+    PRIVATE_LAMBDA_NAME = aws_lambda_function.lambda_aurora.function_name
+    VERIFY_TOKEN        = var.verify_token
+    }
   }
 
 

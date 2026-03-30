@@ -27,6 +27,13 @@ resource "aws_apigatewayv2_stage" "lambda_stage" {
   api_id      = aws_apigatewayv2_api.bedrock_api.id
   name        = "production" #I did not creates any test stage, so I will use production as default
   auto_deploy = true
+
+  #Preventis DOW attack (denial of wallet) by limiting the number of requests that can be made to the API
+  default_route_settings {
+    throttling_rate_limit  = 5  # Max requests per second
+    throttling_burst_limit = 10 # Max concurrent requests
+  }
+
 }
 
 #Integrates API with lambda funcion that will process the signup request

@@ -5,7 +5,7 @@ resource "random_password" "db_password" {
   override_special = "!#$%&*()-_=+[]{}<>:?" #choosing which special cachracter I want
 }
 
-# 2. Cria o "Cofre" no Secrets Manager
+# Secrets Manager
 resource "aws_secretsmanager_secret" "db_credentials" {
   name        = "${var.company_name}-aurora-credentials"
   description = "Credenciais do PostgreSQL para o Data API e Bedrock"
