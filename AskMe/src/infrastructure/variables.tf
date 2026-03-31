@@ -25,3 +25,25 @@ variable "verify_token" {
   type        = string
   description = "Token used to verify the webhook with WhatsApp"
 }
+
+variable "whatsapp_token" {
+  type        = string
+  description = "Token used to authenticate with WhatsApp API"
+}
+
+variable "phone_number_id" {
+  type        = string
+  description = "ID of the phone number registered in WhatsApp Business API"
+}
+
+# O prompt do sistema (As regras de negócio do agente)
+variable "system_prompt" {
+  type        = string
+  description = "System prompt that defines the behavior of the virtual assistant"
+}
+
+variable "model_arn" {
+  type        = string
+  default     = "arn:aws:bedrock:us-east-1:307162859835:inference-profile/us.anthropic.claude-3-5-haiku-20241022-v1:0"
+  description = "ARN of the Bedrock embedding model to be used in the knowledge base"
+}

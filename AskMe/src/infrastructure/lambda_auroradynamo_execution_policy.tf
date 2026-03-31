@@ -14,6 +14,8 @@ resource "aws_iam_role" "lambda_exec_role_auroradynamo" {
   })
 }
 
+data "aws_caller_identity" "current" {}
+
 resource "aws_iam_role_policy" "lambda_exec_policy_auroradynamo" {
   name = "lambda_exec_policy_auroradynamo"
   role = aws_iam_role.lambda_exec_role_auroradynamo.id
@@ -53,7 +55,23 @@ resource "aws_iam_role_policy" "lambda_exec_policy_auroradynamo" {
         ]
         Effect   = "Allow"
         Resource = aws_dynamodb_table.users_table.arn
-      }
+      },
+
+      {
+        Action = [
+          "aws-marketplace:ViewSubscriptions"
+        ]
+        Effect   = "Allow"
+        Resource = "*"
+      },
+
+      {
+      Action = [
+        "bedrock:GetInferenceProfile"
+      ]
+      Effect   = "Allow"
+      Resource = "arn:aws:bedrock:us-east-1:307162859835:inference-profile/us.anthropic.claude-3-5-haiku-20241022-v1:0"
+}
     ]
   })
 }
