@@ -2,7 +2,7 @@
 
 Esta documentação detalha a estimativa de custos para a infraestrutura Serverless com RAG (Retrieval-Augmented Generation) utilizando Amazon Bedrock e Aurora PostgreSQL Serverless v2.
 
-> **Nota de Arquitetura (FinOps):** Esses projetos projeto utilizam um padrão de invocação de Lambdas (Pública acionando Privada) através de um **VPC Endpoint**, eliminando a necessidade de um NAT Gateway e reduzindo drasticamente os custos mensais de rede.
+> **Nota de Arquitetura (FinOps):** Este projeto utiliza um padrão de invocação de Lambdas (Pública acionando Privada) através de um **VPC Endpoint**, eliminando a necessidade de um NAT Gateway e reduzindo drasticamente os custos mensais de rede.
 > *Cotação estimada utilizada: US$ 1,00 = R$ 5,00.*
 
 ### 1. Custos Mensais Fixos (Base da Arquitetura)
