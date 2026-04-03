@@ -22,12 +22,15 @@ resource "aws_lambda_function" "lambda_aurora" {
 
   environment {
     variables = {
-    WHATSAPP_TOKEN    = var.whatsapp_token
-    PHONE_NUMBER_ID   = var.phone_number_id
-    KNOWLEDGE_BASE_ID = aws_bedrockagent_knowledge_base.barber_kb.id
-    MODEL_ARN         = var.model_arn
-    SYSTEM_PROMPT     = var.system_prompt
-    DYNAMODB_TABLE    = aws_dynamodb_table.users_table.name
+    WHATSAPP_TOKEN              = var.whatsapp_token
+    PHONE_NUMBER_ID             = var.phone_number_id
+    KNOWLEDGE_BASE_ID           = aws_bedrockagent_knowledge_base.barber_kb.id
+    MODEL_ARN                   = var.model_arn
+    SYSTEM_PROMPT               = local.system_prompt
+    DYNAMODB_TABLE              = aws_dynamodb_table.users_table.name
+    DYNAMODB_APPOINTMENTS_TABLE = aws_dynamodb_table.appointments_table.name
+    COMPANYS_PHONE              = var.companys_phone
+    COMPANYS_PHONE2             = var.companys_phone2
     }
   }
 

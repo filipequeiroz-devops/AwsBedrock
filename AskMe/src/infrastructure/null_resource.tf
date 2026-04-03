@@ -38,7 +38,7 @@ provisioner "local-exec" {
         --sql "CREATE INDEX IF NOT EXISTS chunks_idx ON vectors USING gin (to_tsvector('simple', chunks));" `
         --region us-east-1
 
-      # Chamada 4: Cria o índice HNSW (Vetores/IA) - O CHEFÃO FINAL
+      # Chamada 4: Cria o índice HNSW (Vetores/IA) 
       aws rds-data execute-statement `
         --resource-arn ${aws_rds_cluster.vector_db.arn} `
         --secret-arn ${aws_secretsmanager_secret.db_credentials.arn} `

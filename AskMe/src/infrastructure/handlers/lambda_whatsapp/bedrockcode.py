@@ -8,8 +8,7 @@ PRIVATE_LAMBDA_NAME = os.environ.get('PRIVATE_LAMBDA_NAME')
 MAX_CHARS = 800
 
 # ==========================================
-# AQUI ESTÁ A SENHA DO WEBHOOK!
-# Essa é a senha que você vai colar lá no painel da Meta
+# This is the meta's painel password
 # ==========================================
 VERIFY_TOKEN = os.environ.get('VERIFY_TOKEN')
 
@@ -27,17 +26,16 @@ def lambda_handler(event, context):
             return {'statusCode': 400, 'body': 'Metodo HTTP nao encontrado'}
 
         # ==========================================
-        # 1. O APERTO DE MÃO (Validação do Webhook via GET)
+        # WebHook Validation by GET request from Meta
         # ==========================================
         if http_method == 'GET':
             # Usa 'or {}' porque se não houver params, a AWS manda None e quebra o código
-            query_params = event.get('queryStringParameters') or {}
+            query_params = event.get('queryStringParameters') or {}   
+            mode         = query_params.get('hub.mode')
+            token        = query_params.get('hub.verify_token')
+            challenge    = query_params.get('hub.challenge')
             
-            mode = query_params.get('hub.mode')
-            token = query_params.get('hub.verify_token')
-            challenge = query_params.get('hub.challenge')
-            
-            # Se o token que a Meta mandou bater com o nosso
+            # If meta's token matches our token, we confirm the webhook setup by returning the challenge
             if mode == 'subscribe' and token == VERIFY_TOKEN:
                 print("Webhook verificado com sucesso pela Meta!")
                 return {

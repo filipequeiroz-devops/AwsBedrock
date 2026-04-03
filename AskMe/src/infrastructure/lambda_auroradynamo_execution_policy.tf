@@ -51,10 +51,14 @@ resource "aws_iam_role_policy" "lambda_exec_policy_auroradynamo" {
           "dynamodb:PutItem",    #to save the conversation
           "dynamodb:GetItem",    #to retrieve the conversation
           "dynamodb:UpdateItem", #to update the conversation
-          "dynamodb:Query"       #to query the conversation
+          "dynamodb:Query",      #to query the conversation history of a specific user (using the hash key UserId) 
+          "dynamodb:Scan"        #to scan the appointments table and find pending appointments (using the hash key UserId and filter by Status = PENDENTE)
         ]
         Effect   = "Allow"
-        Resource = aws_dynamodb_table.users_table.arn
+        Resource = [
+          aws_dynamodb_table.users_table.arn,
+          aws_dynamodb_table.appointments_table.arn
+        ]
       },
 
       {

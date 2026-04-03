@@ -36,14 +36,28 @@ variable "phone_number_id" {
   description = "ID of the phone number registered in WhatsApp Business API"
 }
 
-# O prompt do sistema (As regras de negócio do agente)
-variable "system_prompt" {
-  type        = string
-  description = "System prompt that defines the behavior of the virtual assistant"
-}
+## O prompt do sistema (As regras de negócio do agente)
+#variable "system_prompt" {
+#  type        = string
+#  description = "System prompt that defines the behavior of the virtual assistant"
+#}
 
 variable "model_arn" {
   type        = string
   default     = "arn:aws:bedrock:us-east-1:307162859835:inference-profile/us.anthropic.claude-3-5-haiku-20241022-v1:0"
   description = "ARN of the Bedrock embedding model to be used in the knowledge base"
+}
+
+variable "companys_phone" {
+  type        = string
+  description = "Número de telefone da empresa, necessário para o prompt do sistema"
+}
+
+variable "companys_phone2" {
+  type        = string
+  description = "Número de telefone da empresa, necessário para o prompt do sistema"
+}
+
+locals {
+  system_prompt = file("${path.module}/system_prompt.txt")
 }
