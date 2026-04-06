@@ -10,11 +10,6 @@ variable "key_name" {
   description = "Name of the SSH key pair to access the EC2 instances"
 }
 
-variable "company_name" {
-  type    = string
-  default = "barber"
-
-}
 
 variable "db_password" {
   type        = string
@@ -56,6 +51,22 @@ variable "companys_phone" {
 variable "companys_phone2" {
   type        = string
   description = "Número de telefone da empresa, necessário para o prompt do sistema"
+}
+
+#varibles 
+variable "company_name" {
+  type    = string
+}
+variable "lambda_whatsapp_handler_path" {
+  type    = string
+}
+
+variable "lambda_aurora_handler_path" {
+  type    = string
+}
+
+variable "docs_path" {
+  type    = string
 }
 
 locals {

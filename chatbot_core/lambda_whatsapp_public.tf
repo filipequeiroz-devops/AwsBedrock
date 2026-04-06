@@ -1,8 +1,8 @@
 #This is the lambda that will speak with rds aurora, which is a Private subnet
 data "archive_file" "whatsapp_zip" {
   type        = "zip"
-  source_dir  = "${path.module}/handlers/lambda_whatsapp"
-  output_path = "${path.module}/handlers/lambda_whatsapp_payload.zip"
+  source_dir  = var.caminho_lambda_whatsapp_handler_path
+  output_path = "${path.module}/.terraform/lambda_whatsapp_payload.zip"
 }
 
 resource "aws_lambda_function" "lambda_whatsapp" {
