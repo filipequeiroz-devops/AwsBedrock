@@ -1,8 +1,8 @@
 #This is the lambda that will speak with rds aurora, which is a Private subnet
 data "archive_file" "aurora_zip" {
   type        = "zip"
-  source_dir  = var.caminho_lambda_aurora_handler_path
-  output_path = "${path.module}/.terraform/lambda_whatsapp_payload.zip"
+  source_dir  = var.lambda_aurora_handler_path
+  output_path = "${path.module}/.terraform/lambda_aurora_payload.zip"
 }
 
 resource "aws_lambda_function" "lambda_aurora" {
@@ -26,7 +26,7 @@ resource "aws_lambda_function" "lambda_aurora" {
     PHONE_NUMBER_ID             = var.phone_number_id
     KNOWLEDGE_BASE_ID           = aws_bedrockagent_knowledge_base.barber_kb.id
     MODEL_ARN                   = var.model_arn
-    SYSTEM_PROMPT               = local.system_prompt
+    SYSTEM_PROMPT               = file(var.system_prompt_path)
     DYNAMODB_TABLE              = aws_dynamodb_table.users_table.name
     DYNAMODB_APPOINTMENTS_TABLE = aws_dynamodb_table.appointments_table.name
     COMPANYS_PHONE              = var.companys_phone

@@ -54,7 +54,7 @@ variable "companys_phone2" {
 }
 
 #varibles 
-variable "company_name" {
+variable "company_name" { #lowercase, without spaces, no special characters, used for naming resources, best avoiding issues with naming conventions in AWS
   type    = string
 }
 variable "lambda_whatsapp_handler_path" {
@@ -69,6 +69,10 @@ variable "docs_path" {
   type    = string
 }
 
-locals {
-  system_prompt = file("${path.module}/system_prompt.txt")
+variable "system_prompt_path" {
+  type    = string
 }
+
+#locals {
+#  system_prompt = file("${path.module}/system_prompt.txt")
+#}

@@ -74,3 +74,4 @@ resource "aws_lambda_permission" "api_gw" {
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_apigatewayv2_api.bedrock_api.execution_arn}/*/*" #defining taht only this api gateway can invoke the lambda function, all stages and methods are allowed
 }
+
